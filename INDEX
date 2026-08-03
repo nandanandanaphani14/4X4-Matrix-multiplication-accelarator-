@@ -1,0 +1,6 @@
+Two folders here 
+one with no AXI,zero padding and no tiling 
+and other with all that is mentioned above 
+
+--------------------------------------------------------
+the systolic array multiplier folder is implemented on fpga and full Accelarator with AXI master bus is still a work under progress 
