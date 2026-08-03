@@ -1,0 +1,82 @@
+﻿Reading pref.tcl
+
+# 2021.1
+
+# vsim -c -do "run -all; quit -f" tb_controller 
+# Start time: 11:46:57 on Aug 03,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# //  Questa Sim-64
+# //  Version 2021.1 win64 Jan 19 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.tb_controller(fast)
+# run -all
+# =====================================================================
+#  tb_controller  --  DUT: controller (controller.sv)
+# =====================================================================
+#  Expected: WLOAD=4 FLUSH=6 COMPUTE=nv DRAIN=8 DONE=1  total=nv+19
+# 
+#  TEST PLAN
+#    T1  phase lengths + total job length for nv in {0,1,3,4,6,8,16}
+#    T2  start ignored while busy (hammered mid-job)
+#    T3  reset mid-job returns to IDLE; fresh job still works
+# =====================================================================
+# 
+#   -----------------------------------------------------------------
+#   T1 : phase + total lengths, nv in {0,1,3,4,6,8,16}
+#   -----------------------------------------------------------------
+#       nv | WLOAD FLUSH COMPUTE DRAIN | total | expect total
+#      ----+--------------------------+-------+-------------
+#        0 |    4     6       0      8  |   19  |      19
+#        1 |    4     6       1      8  |   20  |      20
+#        3 |    4     6       3      8  |   22  |      22
+#        4 |    4     6       4      8  |   23  |      23
+#        6 |    4     6       6      8  |   25  |      25
+#        8 |    4     6       8      8  |   27  |      27
+#       16 |    4     6      16      8  |   35  |      35
+#     num_vectors=0 reached DONE in 19 cycles - no hang.
+#     T1 ends: 37 checks, 0 errors  [PASS]
+# 
+#   -----------------------------------------------------------------
+#   T2 : start ignored while busy
+#   -----------------------------------------------------------------
+#     hammered start throughout a 6-vector job: lengths unchanged, no restart
+#     T2 ends: 4 checks, 0 errors  [PASS]
+# 
+#   -----------------------------------------------------------------
+#   T3 : reset mid-job then a fresh job
+#   -----------------------------------------------------------------
+#     asserted reset mid-job: phase=0 busy=0
+#     fresh 3-vector job after reset: total=22 (expect 22)
+#     T3 ends: 3 checks, 0 errors  [PASS]
+# 
+#   =================================================================
+#    SECTION SUMMARY : tb_controller
+#   =================================================================
+#    SEC    DESCRIPTION                                     CHECKS  ERRORS  STATUS
+#    ------ ---------------------------------------------- ------- -------  ------
+#    T1     phase + total lengths, nv in {0,1,3,4,6,8,16}      37       0  PASS
+#    T2     start ignored while busy                           4       0  PASS
+#    T3     reset mid-job then a fresh job                     3       0  PASS
+#    ------ ---------------------------------------------- ------- -------
+#    TOTAL                                                      44       0
+#   =================================================================
+#    TOTALS: 44 checks, 0 errors
+#    simulated time : 2481 ns
+#    RESULT: PASS - tb_controller
+#   =================================================================
+# ** Note: $finish    : C:/Users/VLSI/Desktop/systolic_array_multiplier/verification_recheck/testbenches/tb_controller.sv(130)
+#    Time: 2481 ns  Iteration: 0  Instance: /tb_controller
+# End time: 11:47:10 on Aug 03,2026, Elapsed time: 0:00:13
+# Errors: 0, Warnings: 0
